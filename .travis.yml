@@ -1,0 +1,83 @@
+ # Main language/toolchain
+language: csharp
+
+# Mono is not required for this project
+mono: none
+
+# Install .NET Core
+dotnet: 1.0.4
+
+# Operating systems to test against
+os:
+  - linux
+  - osx
+
+# Disable sudo to enable running inside a container
+sudo: false
+
+# Default linux distro (Ubuntu 14.04)
+dist: trusty
+
+# Default Xcode/macOS version (macOS 10.12)
+osx_image: xcode8.3
+
+# Global environment variables
+env:
+- BUILD_CONFIG="Debug" DOTNET_CLI_TELEMETRY_OPTOUT=1
+- BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# Install dependencies
+install:
+  - bash <(curl -s https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh) --channel "LTS" --version "latest"
+  - bash <(curl -s https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh) --channel "2.0" --version "2.0.0-preview3-006540"
+  - bash <(curl -s https://raw.githubusercontent.com/dotnet/cli/master/scripts/obtain/dotnet-install.sh) --channel "2.0" --version "latest"
+
+# Setup for the build script
+before_script:
+  - export PATH=$HOME/.dotnet:$PATH
+
+# Build script
+script:
+  - dotnet restore
+  - dotnet build --configuration ${BUILD_CONFIG}
+  - dotnet test --configuration ${BUILD_CONFIG} Didstopia.PDFSharp.Tests
+  - dotnet pack --configuration ${BUILD_CONFIG}
+
+# Additional jobs that run after tests
+jobs:
+  include:
+    - stage: nuget.org
+      script: echo "Deploying to nuget.org.."
+      env: BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
+      os: linux
+      deploy:
+        provider: script
+        script: .scripts/deploy.sh $BUILD_CONFIG $NUGET_API_KEY
+        skip_cleanup: true
+        on:
+          repo: Didstopia/PDFSharp
+          tags: true
+    - stage: GitHub Release
+      script: echo "Deploying to GitHub Releases.."
+      env: BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
+      os: linux
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        file_glob: true
+        file: "Didstopia.PDFSharp/bin/${BUILD_CONFIG}/*.nupkg"
+        skip_cleanup: true
+        on:
+          repo: Didstopia/PDFSharp
+          tags: true
+
+# Only build the master branch, as well as tags
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
+cache:
+  directories:
+    - $HOME/.nuget/packages
+    - $HOME/.dotnet/NuGetFallbackFolder
