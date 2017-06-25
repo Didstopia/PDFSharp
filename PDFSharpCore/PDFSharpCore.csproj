@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Didstopia.PDFSharp</PackageId>
+    <PackageVersion>1.0.0-beta1</PackageVersion>
+    <Authors>Didstopia</Authors>
+    <Description>A .NET Standard library for reading, writing and editing PDF files.
+
+NOTE: This is a fork of PDFsharp by empira.</Description>
+    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Owners>Didstopia</Owners>
+    <PackageReleaseNotes>Initial beta release.</PackageReleaseNotes>
+    <Summary>A .NET Standard library for reading, writing and editing PDF files.</Summary>
+    <PackageTags>pdfsharp pdf extract read edit modify parse</PackageTags>
+    <Title>PDFSharp</Title>
+    <PackageLicenseUrl>https://github.com/Didstopia/PDFSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Didstopia/PDFSharp</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;CORE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0;CORE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.1.323" />
+    <PackageReference Include="CoreCompat.System.Drawing" Version="1.0.0-beta006" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="!internal\" />
+    <Folder Include="!JetBrains\" />
+    <Folder Include="Drawing\" />
+    <Folder Include="Drawing.BarCodes\" />
+    <Folder Include="Drawing.Internal\" />
+    <Folder Include="Drawing.Layout\" />
+    <Folder Include="Drawing.Pdf\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Fonts.OpenType\" />
+    <Folder Include="Internal\" />
+    <Folder Include="Pdf\" />
+    <Folder Include="Pdf.AcroForms\" />
+    <Folder Include="Pdf.Actions\" />
+    <Folder Include="Pdf.Advanced\" />
+    <Folder Include="Pdf.Annotations\" />
+    <Folder Include="Pdf.Content\" />
+    <Folder Include="Pdf.Content.Objects\" />
+    <Folder Include="Pdf.Filters\" />
+    <Folder Include="Pdf.Internal\" />
+    <Folder Include="Pdf.IO\" />
+    <Folder Include="Pdf.Printing\" />
+    <Folder Include="Pdf.Security\" />
+    <Folder Include="Properties\" />
+    <Folder Include="Resources\" />
+    <Folder Include="root\" />
+    <Folder Include="SharpZipLib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Pdf\PdfOutlineCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.de.restext" />
+    <EmbeddedResource Include="Resources\Messages.restext" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SharpZipLib\ReadMe.txt" />
+  </ItemGroup>
+</Project>
