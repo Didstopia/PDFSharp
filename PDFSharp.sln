@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFSharpCore", "PDFSharpCore\PDFSharpCore.csproj", "{A7E476D5-D941-403F-9ECE-5D02C7F8E64F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFSharp", "PDFSharp\PDFSharp.csproj", "{A7E476D5-D941-403F-9ECE-5D02C7F8E64F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFSharp.Tests", "PDFSharp.Tests\PDFSharp.Tests.csproj", "{3616B074-D126-48C4-9CBF-AC7C86086EB5}"
 EndProject

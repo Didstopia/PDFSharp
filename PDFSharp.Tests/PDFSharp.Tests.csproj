@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-
-    <IsPackable>false</IsPackable>
+    <RuntimeFrameworkVersion>2.0.0-*</RuntimeFrameworkVersion>
+    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170618-03" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PDFSharp\PDFSharp.csproj" />
+  </ItemGroup>
+  
 </Project>
