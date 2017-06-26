@@ -47,7 +47,7 @@ script:
 jobs:
   include:
     - stage: nuget.org
-      script: echo "Deploying to nuget.org.."
+      script: skip
       env: BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
       os: linux
       deploy:
@@ -58,7 +58,7 @@ jobs:
           repo: Didstopia/PDFSharp
           tags: true
     - stage: GitHub Release
-      script: echo "Deploying to GitHub Releases.."
+      script: skip
       env: BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
       os: linux
       deploy:

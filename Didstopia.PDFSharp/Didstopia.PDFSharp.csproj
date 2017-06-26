@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NETStandardImplicitPackageVersion>2.0.0-preview1-25301-01</NETStandardImplicitPackageVersion>
+    <Description>A .NET Standard library for reading, writing and editing PDF files.
+
+NOTE: This is a fork of PdfSharpCore by ststeiger:
+https://github.com/ststeiger/PdfSharpCore</Description>
+    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
+    <PackageVersion>1.0.0-beta1</PackageVersion>
+    <Authors>Didstopia</Authors>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseUrl>https://github.com/Didstopia/PDFSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <Owners>Didstopia</Owners>
+    <PackageProjectUrl>https://github.com/Didstopia/PDFSharp</PackageProjectUrl>
+    <PackageReleaseNotes>Initial beta release.</PackageReleaseNotes>
+    <Summary>A .NET Standard library for reading, writing and editing PDF files.</Summary>
+    <PackageTags>pdfsharp pdf extract read edit modify parse</PackageTags>
+    <Title>PDFSharp</Title>
+    <PackageId>Didstopia.PDFSharp</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>TRACE;PORTABLE;RELEASE;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;PORTABLE;DEBUG;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.1.323" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="!internal\" />
+    <Folder Include="Drawing\" />
+    <Folder Include="Drawing.BarCodes\" />
+    <Folder Include="Drawing.Internal\" />
+    <Folder Include="Drawing.Layout\" />
+    <Folder Include="Drawing.Pdf\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Fonts.OpenType\" />
+    <Folder Include="Internal\" />
+    <Folder Include="Pdf\" />
+    <Folder Include="Pdf.AcroForms\" />
+    <Folder Include="Pdf.Actions\" />
+    <Folder Include="Pdf.Advanced\" />
+    <Folder Include="Pdf.Annotations\" />
+    <Folder Include="Pdf.Content\" />
+    <Folder Include="Pdf.Content.Objects\" />
+    <Folder Include="Pdf.Filters\" />
+    <Folder Include="Pdf.Internal\" />
+    <Folder Include="Pdf.IO\" />
+    <Folder Include="Pdf.Printing\" />
+    <Folder Include="Pdf.Security\" />
+    <Folder Include="root\" />
+    <Folder Include="SharpZipLib\" />
+    <Folder Include="SilverlightInternals\" />
+  </ItemGroup>
+</Project>

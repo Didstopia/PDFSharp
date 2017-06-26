@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.0-*</RuntimeFrameworkVersion>
+    <Description>A .NET Standard library for reading, writing and editing PDF files.
+
+NOTE: This is a fork of PdfSharpCore by ststeiger:
+https://github.com/ststeiger/PdfSharpCore</Description>
+    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP2_0;PORTABLE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;PORTABLE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170618-03" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Didstopia.PDFSharp\Didstopia.PDFSharp.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fonts\Tinos-Bold.ttf" />
+    <None Remove="Fonts\Tinos-BoldItalic.ttf" />
+    <None Remove="Fonts\Tinos-Italic.ttf" />
+    <None Remove="Fonts\Tinos-Licence.txt" />
+    <None Remove="Fonts\Tinos-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Tinos-Bold.ttf">
+      <LogicalName>Tinos-Bold.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\Tinos-BoldItalic.ttf">
+      <LogicalName>Tinos-BoldItalic.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\Tinos-Italic.ttf">
+      <LogicalName>Tinos-Italic.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\Tinos-Licence.txt">
+      <LogicalName>Tinos-Licence.txt</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fonts\Tinos-Regular.ttf">
+      <LogicalName>Tinos-Regular.ttf</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Samples\Test.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
