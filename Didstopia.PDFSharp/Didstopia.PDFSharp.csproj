@@ -18,7 +18,7 @@ https://github.com/ststeiger/PdfSharpCore</Description>
     <PackageReleaseNotes>Initial beta release.</PackageReleaseNotes>
     <Summary>A .NET Standard library for reading, writing and editing PDF files.</Summary>
     <PackageTags>pdfsharp pdf extract read edit modify parse</PackageTags>
-    <Title>PDFSharp</Title>
+    <Title>PDFSharp for .NET Standard</Title>
     <PackageId>Didstopia.PDFSharp</PackageId>
   </PropertyGroup>
 

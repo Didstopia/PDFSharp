@@ -1,4 +1,4 @@
-# PDFSharp
+# PDFSharp for .NET Standard
 
 [![Build Status](https://travis-ci.org/Didstopia/PDFSharp.svg?branch=master)](https://travis-ci.org/Didstopia/PDFSharp)
 [![NuGet](https://img.shields.io/nuget/dt/Didstopia.PDFSharp.svg)](https://www.nuget.org/packages/Didstopia.PDFSharp)

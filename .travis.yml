@@ -58,7 +58,7 @@ jobs:
           repo: Didstopia/PDFSharp
           tags: true
     - stage: GitHub Release
-      script: skip
+      script: dotnet restore && dotnet build -c $BUILD_CONFIG && dotnet pack -c $BUILD_CONFIG
       env: BUILD_CONFIG="Release" DOTNET_CLI_TELEMETRY_OPTOUT=1
       os: linux
       deploy:
