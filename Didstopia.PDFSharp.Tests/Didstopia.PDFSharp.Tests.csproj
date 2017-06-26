@@ -59,5 +59,8 @@ https://github.com/ststeiger/PdfSharpCore</Description>
     <None Update="Samples\Test.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Samples\pdf_sample_password.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
