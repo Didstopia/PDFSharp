@@ -12,7 +12,7 @@ A .NET Standard 2.0 library for reading, writing and editing PDF files.
 - [x] Creating, modifying, loading and saving PDF documents
 - [x] Loading custom fonts, drawing text on PDF documents
 - [ ] Encrypted (password protected) PDF documents (#3)
-- [ ] Everything else not mentioned here 
+- [ ] Everything else _not_ mentioned here 
 
 It's important to note that this is **prerelease software**, meaning some things work while others do not.
 
