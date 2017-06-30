@@ -375,8 +375,17 @@ namespace Didstopia.PDFSharp.Pdf
             try
             {
                 // HACK: Remove XRefTrailer
+                //if (_trailer is PdfCrossReferenceStream)
+                //    _trailer = new PdfTrailer((PdfCrossReferenceStream)_trailer);
+
+                // HACK: Remove XRefTrailer
                 if (_trailer is PdfCrossReferenceStream)
+                {
+                    // HACK^2: Preserve the SecurityHandler.
+                    PdfStandardSecurityHandler securityHandler = _securitySettings.SecurityHandler;
                     _trailer = new PdfTrailer((PdfCrossReferenceStream)_trailer);
+                    _trailer._securityHandler = securityHandler;
+                }
 
                 bool encrypt = _securitySettings.DocumentSecurityLevel != PdfDocumentSecurityLevel.None;
                 if (encrypt)

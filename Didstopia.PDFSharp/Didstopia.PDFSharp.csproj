@@ -3,23 +3,23 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NETStandardImplicitPackageVersion>2.0.0-preview1-25301-01</NETStandardImplicitPackageVersion>
-    <Description>A .NET Standard library for reading, writing and editing PDF files.
-
-NOTE: This is a fork of PdfSharpCore by ststeiger:
-https://github.com/ststeiger/PdfSharpCore</Description>
-    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
-    <PackageVersion>1.0.0-beta1</PackageVersion>
-    <Authors>Didstopia</Authors>
+    <ReleaseVersion>1.0.0-beta2</ReleaseVersion>
+    <PackageVersion>1.0.0-beta2</PackageVersion>
+    <Authors>Didstopia, ststeiger, roceh, empira</Authors>
     <DevelopmentDependency>true</DevelopmentDependency>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseUrl>https://github.com/Didstopia/PDFSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <Owners>Didstopia</Owners>
     <PackageProjectUrl>https://github.com/Didstopia/PDFSharp</PackageProjectUrl>
-    <PackageReleaseNotes>Initial beta release.</PackageReleaseNotes>
-    <Summary>A .NET Standard library for reading, writing and editing PDF files.</Summary>
-    <PackageTags>pdfsharp pdf extract read edit modify parse</PackageTags>
+    <PackageReleaseNotes>Fixed dependency cycle issues with .NET Standard 2.0.
+Fixed missing license attributions.</PackageReleaseNotes>
+    <Summary>A .NET Standard 2.0 library for reading, writing and editing PDF files.</Summary>
+    <PackageTags>pdfsharp pdf extract read edit modify parse dotnet standard 2.0 .net core</PackageTags>
     <Title>PDFSharp for .NET Standard</Title>
     <PackageId>Didstopia.PDFSharp</PackageId>
+    <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
+
+This is a modified fork based on several OSS projects. For more information see the license.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,10 +30,6 @@ https://github.com/ststeiger/PdfSharpCore</Description>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;PORTABLE;DEBUG;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.1.323" />
-  </ItemGroup>
-
   <ItemGroup>
     <Folder Include="!internal\" />
     <Folder Include="Drawing\" />
@@ -59,5 +55,8 @@ https://github.com/ststeiger/PdfSharpCore</Description>
     <Folder Include="root\" />
     <Folder Include="SharpZipLib\" />
     <Folder Include="SilverlightInternals\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="SharpZipLib\ReadMe.txt" />
   </ItemGroup>
 </Project>

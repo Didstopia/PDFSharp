@@ -75,7 +75,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		description = @A .NET Standard library for reading, writing and editing PDF files.\r\n\r\nNOTE: This is a fork of PdfSharpCore by ststeiger:\r\nhttps://github.com/ststeiger/PdfSharpCore
-		version = 1.0.0-beta1
+		description = @A .NET Standard 2.0 library for reading, writing and editing PDF files.\r\n\r\nThis is a modified fork based on several OSS projects. For more information see the license.
+		version = 1.0.0-beta2
 	EndGlobalSection
 EndGlobal

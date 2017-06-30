@@ -17,6 +17,8 @@ namespace Didstopia.PDFSharp.Tests
         private const string FontName = "Tinos";
         private const int FontSize = 16;
 
+        private const string PasswordSamplePath = "Samples/pdf_sample_password.pdf";
+
         [Fact]
         public void TestBasicFunctionality()
         {
@@ -60,6 +62,33 @@ namespace Didstopia.PDFSharp.Tests
             // Close and dispose of the loaded PDF
             loadedPdfDocument.Close();
             loadedPdfDocument.Dispose();
+        }
+
+        [Fact(Skip = "Skipping encryption tests due to a pending issue: https://github.com/Didstopia/PDFSharp/issues/3")]
+        public void TestEncryption()
+        {
+            // FIXME: This is still breaking due to an NRE being thrown in the security classes/methods
+
+            // Opening a document will fail with an invalid password.
+            try
+            {
+                //var document = PdfReader.Open(PasswordSamplePath, "invalid password");
+                var document = PdfReader.Open(PasswordSamplePath, PdfDocumentOpenMode.ReadOnly, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            // Load the PDF
+            var pdfDocument = PdfReader.Open(PasswordSamplePath, "password", PdfDocumentOpenMode.ReadOnly);
+            Assert.True(pdfDocument != null, "PDF should not be null");
+            Assert.True(pdfDocument.Info != null, "PDF info should not be null");
+            Assert.True(pdfDocument.Info.Title.Equals(TitleString), $"PDF title should equal { TitleString }");
+
+            // Close and dispose of the loaded PDF
+            pdfDocument.Close();
+            pdfDocument.Dispose();
         }
     }
 }

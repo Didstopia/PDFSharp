@@ -1,5 +1,8 @@
-MIT License
+# MIT License
 
+Copyright (c) 2005-2007 empira Software GmbH, Cologne (Germany)
+Copyright (c) 2016 David Dunscombe
+Copyright (c) 2017 Stefan Steiger
 Copyright (c) 2017 Didstopia
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
