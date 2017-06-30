@@ -3,11 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RuntimeFrameworkVersion>2.0.0-*</RuntimeFrameworkVersion>
-    <Description>A .NET Standard library for reading, writing and editing PDF files.
+    <ReleaseVersion>1.0.0-beta2</ReleaseVersion>
+    <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
 
-NOTE: This is a fork of PdfSharpCore by ststeiger:
-https://github.com/ststeiger/PdfSharpCore</Description>
-    <ReleaseVersion>1.0.0-beta1</ReleaseVersion>
+This is a modified fork based on several OSS projects. For more information see the license.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
