@@ -7,6 +7,9 @@ mono: none
 # Install .NET Core 2.0
 dotnet: 2.0.0-preview2-006497
 
+# Run Ubuntu Trusty
+dist: trusty
+
 # Disable sudo to enable running inside a container
 sudo: false
 
@@ -40,7 +43,7 @@ jobs:
       script: skip
       deploy:
         provider: script
-        script: ".scripts/deploy.sh $BUILD_CONFIG $NUGET_API_KEY"
+        script: .scripts/deploy.sh $BUILD_CONFIG $NUGET_API_KEY
         skip_cleanup: true
         on:
           repo: Didstopia/PDFSharp
