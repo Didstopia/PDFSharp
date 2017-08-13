@@ -18,5 +18,5 @@ if [[ "$BUILD_CONFIG" == "Release" ]]; then
 	dotnet build --configuration ${BUILD_CONFIG} /p:VersionSuffix=$VERSION_SUFFIX
 	dotnet pack --configuration ${BUILD_CONFIG} --no-build --version-suffix $VERSION_SUFFIX
 
-	dotnet nuget push Didstopia.PDFSharp/bin/$BUILD_CONFIG/*.nupkg --api-key $NUGET_API_KEY --source $NUGET_SOURCE_URL
+	dotnet nuget push Didstopia.PDFSharp/bin/$BUILD_CONFIG/*.nupkg --api-key $NUGET_API_KEY --source $NUGET_SOURCE_URL || true
 fi
