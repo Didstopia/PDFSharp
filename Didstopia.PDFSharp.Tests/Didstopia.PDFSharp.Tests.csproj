@@ -2,16 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RuntimeFrameworkVersion>2.0.0-*</RuntimeFrameworkVersion>
-    <ReleaseVersion>1.0.0-beta2</ReleaseVersion>
+    <RuntimeFrameworkVersion>2.0.0-preview2-25407-01</RuntimeFrameworkVersion>
+    <ReleaseVersion>0.0.1</ReleaseVersion>
     <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
 
 This is a modified fork based on several OSS projects. For more information see the license.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
+    <DebugType></DebugType>
     <DefineConstants>TRACE;RELEASE;NETCOREAPP2_0;PORTABLE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
