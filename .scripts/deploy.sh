@@ -16,9 +16,9 @@ if [[ "$BUILD_CONFIG" == "Release" ]]; then
 		dotnet build -c ${BUILD_CONFIG} /p:VersionSuffix=$VERSION_SUFFIX
 		dotnet pack -c ${BUILD_CONFIG} --no-build --version-suffix $VERSION_SUFFIX
 	else
-		dotnet restore /p:PackageVersion=$TRAVIS_TAG
-		dotnet build -c ${BUILD_CONFIG} /p:PackageVersion=$TRAVIS_TAG
-		dotnet pack -c ${BUILD_CONFIG} --no-build /p:PackageVersion=$TRAVIS_TAG
+		dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}
+		dotnet build -c ${BUILD_CONFIG} /p:PackageVersion=${TRAVIS_TAG#v}
+		dotnet pack -c ${BUILD_CONFIG} --no-build /p:PackageVersion=${TRAVIS_TAG#v}
 	fi
 
 	dotnet nuget push Didstopia.PDFSharp/bin/$BUILD_CONFIG/*.nupkg --api-key $NUGET_API_KEY --source $NUGET_SOURCE_URL || true
