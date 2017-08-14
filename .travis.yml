@@ -36,7 +36,7 @@ jobs:
         skip_cleanup: true
         on:
           repo: Didstopia/PDFSharp
-          branch: master
+          branch: development
           tags: false
 
     - stage: Deploy to NuGet
