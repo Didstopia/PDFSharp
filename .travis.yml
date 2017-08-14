@@ -52,9 +52,9 @@ jobs:
 
     - stage: Deploy to GitHub
       script:
-        - dotnet restore /p:PackageVersion=$TRAVIS_TAG
-        - dotnet build -c $BUILD_CONFIG /p:PackageVersion=$TRAVIS_TAG
-        - dotnet pack -c $BUILD_CONFIG --no-build /p:PackageVersion=$TRAVIS_TAG
+        - dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}
+        - dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}
+        - dotnet pack -c $BUILD_CONFIG --no-build /p:PackageVersion=${TRAVIS_TAG#v}
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
