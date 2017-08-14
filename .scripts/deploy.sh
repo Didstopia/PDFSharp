@@ -8,7 +8,7 @@ NUGET_API_KEY=$2
 NUGET_SOURCE_URL=${3:-https://www.nuget.org/api/v2/package}
 
 if [[ "$BUILD_CONFIG" == "Release" ]]; then
-	if [ $# -eq 3 ] then
+	if [ $# -eq 3 ]; then
 		VERSION_SUFFIX="SNAPSHOT-$(git rev-list HEAD | wc -l)-$(git rev-parse --short HEAD)"
 	else
 		VERSION_SUFFIX=""
