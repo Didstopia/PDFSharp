@@ -6,6 +6,7 @@ set -o pipefail
 BUILD_CONFIG=$1
 NUGET_API_KEY=$2
 NUGET_SOURCE_URL=${3:-https://www.nuget.org/api/v2/package}
+TRAVIS_TAG=$4
 
 if [[ "$BUILD_CONFIG" == "Release" ]]; then
 
