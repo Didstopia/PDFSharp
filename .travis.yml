@@ -5,7 +5,7 @@ language: csharp
 mono: none
 
 # Install .NET Core 2.0
-dotnet: 2.0.0-preview2-006497
+dotnet: 2.0.0
 
 # Run Ubuntu Trusty
 dist: trusty
