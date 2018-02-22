@@ -53,6 +53,9 @@ This is a modified fork based on several OSS projects. For more information see 
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Samples\pdf-example-password.original.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Samples\Test.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

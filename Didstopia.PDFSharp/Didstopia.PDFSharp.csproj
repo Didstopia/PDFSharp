@@ -58,4 +58,7 @@ This is a modified fork based on several OSS projects. For more information see 
   <ItemGroup>
     <None Remove="SharpZipLib\ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+  </ItemGroup>
 </Project>
