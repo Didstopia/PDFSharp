@@ -50,7 +50,6 @@ This is a modified fork based on several OSS projects. For more information see 
     <Folder Include="Pdf.Internal\" />
     <Folder Include="Pdf.IO\" />
     <Folder Include="Pdf.Printing\" />
-    <Folder Include="Pdf.Security\" />
     <Folder Include="root\" />
     <Folder Include="SharpZipLib\" />
     <Folder Include="SilverlightInternals\" />

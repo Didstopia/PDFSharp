@@ -88,7 +88,7 @@ namespace Didstopia.PDFSharp.Tests
             
             catch (Exception ex)
             {
-                Assert.Equal(ex.Message, "The specified password is invalid.");
+                Assert.Equal("The specified password is invalid.", ex.Message);
                 Console.WriteLine(ex);
             }
         }
@@ -97,7 +97,6 @@ namespace Didstopia.PDFSharp.Tests
         /// Ensure opening a secure document with appropriate password succeeds
         /// </summary>
         [Fact()]
-        ///[Fact(Skip = "Skipping encryption tests due to a pending issue: https://github.com/Didstopia/PDFSharp/issues/3")]
         public void TestEncryption()
         {
             // Load the PDF (using other password protected doc as password didnt seem to be the password?)
