@@ -5,7 +5,6 @@ using Didstopia.PDFSharp.Fonts;
 using Didstopia.PDFSharp.Pdf;
 using Didstopia.PDFSharp.Pdf.IO;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Didstopia.PDFSharp.Tests
 {
@@ -72,18 +71,19 @@ namespace Didstopia.PDFSharp.Tests
         [Fact()]
         public void TestEncryptionFailsProperly()
         {
-                //var document = PdfReader.Open(PasswordSamplePath, "invalid password");
-                var document = PdfReader.Open(PasswordSamplePath, PdfDocumentOpenMode.ReadOnly, null);
+            // attempt open with null provider, should not throw exception
+            PdfReader.Open(PasswordSamplePath, PdfDocumentOpenMode.ReadOnly, null);
                
-                Assert.Throws<PdfReaderException>(() =>
-                {
-                    document = PdfReader.Open(PasswordSamplePath, "invalid password", PdfDocumentOpenMode.ReadOnly);
-                });
+            // purposely open document with invalid password, ensure pdf reader exception thrown
+            Assert.Throws<PdfReaderException>(() =>
+            {
+                PdfReader.Open(PasswordSamplePath, "invalid password", PdfDocumentOpenMode.ReadOnly);
+            });
 
-
+            // assert that message indicating password is invalid
             try
             {
-                document = PdfReader.Open(PasswordSamplePath, "invalid password", PdfDocumentOpenMode.ReadOnly);
+                PdfReader.Open(PasswordSamplePath, "invalid password", PdfDocumentOpenMode.ReadOnly);
             }
             
             catch (Exception ex)
