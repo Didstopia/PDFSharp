@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <ReleaseVersion>1.0.0-beta4</ReleaseVersion>
+    <ReleaseVersion>1.0.0-beta5</ReleaseVersion>
     <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
 
 This is a modified fork based on several OSS projects. For more information see the license.</Description>
