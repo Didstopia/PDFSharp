@@ -30,6 +30,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using Didstopia.PDFSharp.Pdf;
 using Didstopia.PDFSharp.Pdf.IO;
 using Didstopia.PDFSharp.Pdf.Advanced;
@@ -623,7 +624,7 @@ namespace Didstopia.PDFSharp.Pdf.Security
         readonly MD5Managed _md5M = new MD5Managed();
 #endif
 #else
-        readonly MD5Managed _md5 = new MD5Managed();
+        readonly MD5 _md5 = MD5.Create();
 #endif
 #if NETFX_CORE
         // readonly MD5Managed _md5 = new MD5Managed();
