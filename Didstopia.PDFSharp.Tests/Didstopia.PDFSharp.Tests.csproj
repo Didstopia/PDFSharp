@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <ReleaseVersion>1.0.0-beta4</ReleaseVersion>
+    <ReleaseVersion>1.0.0-beta5</ReleaseVersion>
     <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
 
 This is a modified fork based on several OSS projects. For more information see the license.</Description>
@@ -16,9 +16,9 @@ This is a modified fork based on several OSS projects. For more information see 
     <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;PORTABLE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
   </ItemGroup>
 
   <ItemGroup>
