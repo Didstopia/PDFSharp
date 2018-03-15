@@ -16,6 +16,7 @@ This is a modified fork based on several OSS projects. For more information see 
     <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;PORTABLE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0002" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
@@ -54,6 +55,9 @@ This is a modified fork based on several OSS projects. For more information see 
   </ItemGroup>
   <ItemGroup>
     <None Update="Samples\pdf-example-password.original.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\sample.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Samples\Test.pdf">
