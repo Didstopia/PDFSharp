@@ -44,7 +44,7 @@ namespace Didstopia.PDFSharp.Tests
 
             // Add an image with transparency
             ImageSource.ImageSourceImpl = new ImageSharpImageSource();
-            pdfGraphics.DrawImage(XImage.FromImageSource(ImageSource.FromFile("Samples/sample.png", isJpeg: false)), new XRect(0, 0, pdfPage.Width, pdfPage.Height));
+            pdfGraphics.DrawImage(XImage.FromFile("Samples/sample.png"), new XRect(0, 0, pdfPage.Width, pdfPage.Height));
 
             // Save the PDF to a temporary path
             var tempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".pdf");

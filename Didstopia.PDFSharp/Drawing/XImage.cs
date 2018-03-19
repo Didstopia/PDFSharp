@@ -134,12 +134,18 @@ namespace Didstopia.PDFSharp.Drawing
         /// Creates an image from the specified file.
         /// </summary>
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
-        /// <param name="isJepg">True if the file is a JPEG; otherwise false.</param>
-        public static XImage FromFile(string path, bool isJepg = true)
+        /// <param name="isJepg">True if the file is a JPEG; otherwise false. If left null, the format will be determined from the extension.</param>
+        public static XImage FromFile(string path, bool? isJepg = null)
         {
             if (PdfReader.TestPdfFile(path) > 0)
                 return new XPdfForm(path);
-            return new XImage(path, isJepg);
+            if (!isJepg.HasValue)
+            {
+                isJepg = string.IsNullOrEmpty(path)
+                    || path.EndsWith("jpeg")
+                    || path.EndsWith("jpg");
+            }
+            return new XImage(path, isJepg.Value);
         }
 
         /// <summary>
