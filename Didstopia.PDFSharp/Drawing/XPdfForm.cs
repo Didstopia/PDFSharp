@@ -96,7 +96,7 @@ namespace Didstopia.PDFSharp.Drawing
         /// <summary>
         /// Creates an XPdfForm from a file.
         /// </summary>
-        public static new XPdfForm FromFile(string path)
+        public static XPdfForm FromFile(string path)
         {
             // TODO: Same file should return same object (that's why the function is static).
             return new XPdfForm(path);
