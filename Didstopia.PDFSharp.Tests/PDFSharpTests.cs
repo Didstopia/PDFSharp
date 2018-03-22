@@ -4,6 +4,7 @@ using Didstopia.PDFSharp.Drawing;
 using Didstopia.PDFSharp.Fonts;
 using Didstopia.PDFSharp.Pdf;
 using Didstopia.PDFSharp.Pdf.IO;
+using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
 using Xunit;
 
 namespace Didstopia.PDFSharp.Tests
@@ -40,6 +41,10 @@ namespace Didstopia.PDFSharp.Tests
             XGraphics pdfGraphics = XGraphics.FromPdfPage(pdfPage);
             XFont pdfFont = new XFont(FontName, FontSize, XFontStyle.Regular);
             pdfGraphics.DrawString(TitleString, pdfFont, XBrushes.Black, new XRect(0, 0, pdfPage.Width, pdfPage.Height), XStringFormats.Center);
+
+            // Add an image with transparency
+            ImageSource.ImageSourceImpl = new ImageSharpImageSource();
+            pdfGraphics.DrawImage(XImage.FromFile("Samples/sample.png"), new XRect(0, 0, pdfPage.Width, pdfPage.Height));
 
             // Save the PDF to a temporary path
             var tempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".pdf");
