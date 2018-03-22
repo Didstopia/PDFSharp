@@ -23,7 +23,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
@@ -76,7 +76,18 @@ namespace Didstopia.PDFSharp.Drawing
         // Useful stuff here: http://stackoverflow.com/questions/350027/setting-wpf-image-source-in-code
         XImage(string path)
         {
-            _source = ImageSource.FromFile(path);
+            var isJpeg = true;
+            if (!string.IsNullOrEmpty(path) && !path.EndsWith("jpeg") && !path.EndsWith("jpg"))
+            {
+                isJpeg = false;
+            }
+            _source = ImageSource.FromFile(path, isJpeg);
+            Initialize();
+        }
+
+        XImage(string path, bool isJpeg)
+        {
+            _source = ImageSource.FromFile(path, isJpeg);
             Initialize();
         }
 
@@ -95,6 +106,14 @@ namespace Didstopia.PDFSharp.Drawing
             Initialize();
         }
 
+        XImage(Func<Stream> stream, bool isJepg)
+        {
+            // Create a dummy unique path.
+            _path = "*" + Guid.NewGuid().ToString("B");
+            _source = ImageSource.FromStream(_path, stream, isJepg);
+            Initialize();
+        }
+
         XImage(Func<byte[]> data)
         {
             // Create a dummy unique path.
@@ -103,15 +122,30 @@ namespace Didstopia.PDFSharp.Drawing
             Initialize();
         }
 
+        XImage(Func<byte[]> data, bool isJpeg)
+        {
+            // Create a dummy unique path.
+            _path = "*" + Guid.NewGuid().ToString("B");
+            _source = ImageSource.FromBinary(_path, data, isJpeg);
+            Initialize();
+        }
+
         /// <summary>
         /// Creates an image from the specified file.
         /// </summary>
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
-        public static XImage FromFile(string path)
+        /// <param name="isJepg">True if the file is a JPEG; otherwise false. If left null, the format will be determined from the extension.</param>
+        public static XImage FromFile(string path, bool? isJepg = null)
         {
             if (PdfReader.TestPdfFile(path) > 0)
                 return new XPdfForm(path);
-            return new XImage(path);
+            if (!isJepg.HasValue)
+            {
+                isJepg = string.IsNullOrEmpty(path)
+                    || path.EndsWith("jpeg")
+                    || path.EndsWith("jpg");
+            }
+            return new XImage(path, isJepg.Value);
         }
 
         /// <summary>
@@ -119,7 +153,8 @@ namespace Didstopia.PDFSharp.Drawing
         /// Silverlight supports PNG and JPEF only.
         /// </summary>
         /// <param name="stream">The stream containing a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
-        public static XImage FromStream(Func<Stream> stream)
+        /// <param name="isJepg">True if the file is a JPEG; otherwise false.</param>
+        public static XImage FromStream(Func<Stream> stream, bool isJepg = true)
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -127,7 +162,7 @@ namespace Didstopia.PDFSharp.Drawing
             // TODO: Check PDF stream.
             //if (PdfReader.TestPdfFile(path) > 0)
             //  return new XPdfForm(path);
-            return new XImage(stream);
+            return new XImage(stream, isJepg);
         }
 
         public static XImage FromImageSource(IImageSource imageSouce)
@@ -170,14 +205,14 @@ namespace Didstopia.PDFSharp.Drawing
         {
             if (_source != null)
             {
-                //We always get a jpeg from an image source
-                _format = XImageFormat.Jpeg;
+                // Actual format assigned for non-jpeg doesn't matter; all non-jpegs are treated the same.
+                _format = _source.IsJpeg ? XImageFormat.Jpeg : XImageFormat.Png;
             }
         }
 
 #if __IOS__
         public MemoryStream AsJpeg()
-        {            
+        {
             var ms = new MemoryStream();
 
             using (var stream = _iosImage.AsJPEG(0.7f).AsStream())
@@ -193,6 +228,14 @@ namespace Didstopia.PDFSharp.Drawing
         {
             var ms = new MemoryStream();
             _source.SaveAsJpeg(ms);
+            ms.Position = 0;
+            return ms;
+        }
+
+        public MemoryStream AsBmp()
+        {
+            var ms = new MemoryStream();
+            _source.SaveAsBmp(ms);
             ms.Position = 0;
             return ms;
         }
@@ -792,7 +835,7 @@ namespace Didstopia.PDFSharp.Drawing
         }
 
         /// <summary>
-        /// Gets or sets a flag indicating whether image interpolation is to be performed. 
+        /// Gets or sets a flag indicating whether image interpolation is to be performed.
         /// </summary>
         public virtual bool Interpolate
         {

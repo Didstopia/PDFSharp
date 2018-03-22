@@ -18,27 +18,29 @@ namespace MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes
             int Width { get; }
             int Height { get; }
             string Name { get; }
+            bool IsJpeg { get; }
             void SaveAsJpeg(MemoryStream ms);
+            void SaveAsBmp(MemoryStream ms);
         }
 
-        protected abstract IImageSource FromFileImpl(string path, int? quality = 75);
-        protected abstract IImageSource FromBinaryImpl(string name, Func<byte[]> imageSource, int? quality = 75);
-        protected abstract IImageSource FromStreamImpl(string name, Func<Stream> imageStream, int? quality = 75);
+        protected abstract IImageSource FromFileImpl(string path, bool isJpeg = true, int? quality = 75);
+        protected abstract IImageSource FromBinaryImpl(string name, Func<byte[]> imageSource, bool isJpeg = true, int? quality = 75);
+        protected abstract IImageSource FromStreamImpl(string name, Func<Stream> imageStream, bool isJpeg = true, int? quality = 75);
 
 
-        public static IImageSource FromFile(string path, int? quality = 75)
+        public static IImageSource FromFile(string path, bool isJpeg = true, int? quality = 75)
         {
-            return ImageSourceImpl.FromFileImpl(path, quality);
+            return ImageSourceImpl.FromFileImpl(path, isJpeg, quality);
         }
 
-        public static IImageSource FromBinary(string name, Func<byte[]> imageSource, int? quality = 75)
+        public static IImageSource FromBinary(string name, Func<byte[]> imageSource, bool isJpeg = true, int? quality = 75)
         {
-            return ImageSourceImpl.FromBinaryImpl(name, imageSource, quality);
+            return ImageSourceImpl.FromBinaryImpl(name, imageSource, isJpeg, quality);
         }
 
-        public static IImageSource FromStream(string name, Func<Stream> imageStream, int? quality = 75)
+        public static IImageSource FromStream(string name, Func<Stream> imageStream, bool isJpeg = true, int? quality = 75)
         {
-            return ImageSourceImpl.FromStreamImpl(name, imageStream, quality);
+            return ImageSourceImpl.FromStreamImpl(name, imageStream, isJpeg, quality);
         }
     }
 }

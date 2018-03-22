@@ -385,6 +385,7 @@ namespace Didstopia.PDFSharp.Pdf.Advanced
         /// </summary>
         void InitializeNonJpeg()
         {
+            ReadTrueColorMemoryBitmap(3, 8, true);
 #if CORE || GDI || WPF
             if (_image._importedImage != null)
             {
@@ -743,7 +744,7 @@ namespace Didstopia.PDFSharp.Pdf.Advanced
             image.image.Save("$$$.bmp", ImageFormat.Bmp);
 #endif
             int pdfVersion = Owner.Version;
-            MemoryStream memory = new MemoryStream();
+            MemoryStream memory = _image.AsBmp();
 #if CORE_WITH_GDI
             _image._gdiImage.Save(memory, ImageFormat.Bmp);
 #endif
