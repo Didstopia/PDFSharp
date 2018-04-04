@@ -3,9 +3,11 @@ using System.IO;
 using Didstopia.PDFSharp.Drawing;
 using Didstopia.PDFSharp.Fonts;
 using Didstopia.PDFSharp.Pdf;
+using Didstopia.PDFSharp.Pdf.AcroForms;
 using Didstopia.PDFSharp.Pdf.IO;
 using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Didstopia.PDFSharp.Tests
 {
@@ -20,6 +22,14 @@ namespace Didstopia.PDFSharp.Tests
 
         private const string PasswordSamplePath = "Samples/pdf_sample_password.pdf";
         private const string PasswordSamplePath2 = "Samples/pdf-example-password.original.pdf";
+        private const string PasswordSamplePathAcroForm = "Samples/pdf-example-acroform.pdf";
+
+        private readonly ITestOutputHelper output;
+
+        public PDFSharpTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
 
         [Fact]
         public void TestBasicFunctionality()
@@ -111,6 +121,52 @@ namespace Didstopia.PDFSharp.Tests
 
             // Title changed here, and this sample has garbledegoup title, so maybe additional other doc should be used
             // Assert.True(pdfDocument.Info.Title.Equals(TitleString), $"PDF title should equal { TitleString }");
+
+            // Close and dispose of the loaded PDF
+            pdfDocument.Close();
+            pdfDocument.Dispose();
+        }
+
+        /// <summary>
+        /// Ensure AcroForm functionality operates as expected
+        /// </summary>
+        [Fact()]
+        public void TextAcroForms()
+        {
+            // Set the global font resolver
+            GlobalFontSettings.FontResolver = new FontResolver();
+
+            // Load the PDF
+            var pdfDocument = PdfReader.Open(PasswordSamplePathAcroForm, PdfDocumentOpenMode.Modify);
+            Assert.True(pdfDocument != null, "PDF should not be null");
+            Assert.True(pdfDocument.Info != null, "PDF info should not be null");
+
+            var acroForm = pdfDocument.AcroForm;
+            Assert.NotNull(acroForm);
+
+            // Enable AcroForm
+            if (acroForm.Elements.ContainsKey("/NeedAppearances"))
+            {
+                acroForm.Elements["/NeedAppearances"] = new PdfBoolean(true);
+            }
+            else
+            {
+                acroForm.Elements.Add("/NeedAppearances", new PdfBoolean(true));
+            }
+
+            // Update a field
+            ((PdfTextField)(acroForm.Fields["Here we have a form field"])).Value = new PdfString("Success");
+
+            // Save the filled-in PDF form to a temporary path
+            var tempFilePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".pdf");
+            // Output the path for manual verification of result
+            output.WriteLine($"Temp path: {tempFilePath}");
+            Assert.False(File.Exists(tempFilePath), "Temporary file should not exist before saving");
+            Assert.True(pdfDocument.CanSave(ref tempFilePath), $"PDF should be able to be saved to path: { tempFilePath }");
+            pdfDocument.Save(tempFilePath);
+            Assert.True(File.Exists(tempFilePath), "Temporary file should exist after saving");
+            var tempFileLength = new FileInfo(tempFilePath).Length;
+            Assert.True(tempFileLength > 0, $"Temporary file length should be greater than 0 after saving, but was { tempFileLength } instead");
 
             // Close and dispose of the loaded PDF
             pdfDocument.Close();
