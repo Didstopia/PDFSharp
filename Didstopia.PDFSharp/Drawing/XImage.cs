@@ -176,17 +176,22 @@ namespace Didstopia.PDFSharp.Drawing
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         public static bool ExistsFile(string path)
         {
-            // Support for "base64:" pseudo protocol is a MigraDoc feature, currently completely implemented in MigraDoc files. TODO: Does support for "base64:" make sense for PDFsharp? Probably not as PDFsharp can handle images from streams.
-            //if (path.StartsWith("base64:")) // The Image is stored in the string here, so the file exists.
-            //    return true;
+			// Support for "base64:" pseudo protocol is a MigraDoc feature, currently completely implemented in MigraDoc files. TODO: Does support for "base64:" make sense for PDFsharp? Probably not as PDFsharp can handle images from streams.
+			//if (path.StartsWith("base64:")) // The Image is stored in the string here, so the file exists.
+			//    return true;
 
-            if (PdfReader.TestPdfFile(path) > 0)
+			// NOTE: The old method below would try to validate the PDF file,
+            //       which has nothing to do with checking for the existence of a file
+			return File.Exists(path);
+            
+            /*if (PdfReader.TestPdfFile(path) > 0)
                 return true;
+			
 #if !NETFX_CORE && !UWP && !PORTABLE
             return File.Exists(path);
 #else
             return false;
-#endif
+#endif*/
         }
 
         internal XImageState XImageState

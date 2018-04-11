@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ReleaseVersion>1.0.0-beta5</ReleaseVersion>
+    <ReleaseVersion>1.0.0-beta6</ReleaseVersion>
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Didstopia, ststeiger, roceh, empira</Authors>
