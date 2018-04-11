@@ -47,7 +47,10 @@ namespace Didstopia.PDFSharp.Tests
             Assert.True(pdfPage != null, "PDF page should not be null");
 
             // Draw text on the newly created page
-            GlobalFontSettings.FontResolver = new FontResolver();
+            if (GlobalFontSettings.FontResolver == null)
+            {
+                GlobalFontSettings.FontResolver = new FontResolver();
+            }
             XGraphics pdfGraphics = XGraphics.FromPdfPage(pdfPage);
             XFont pdfFont = new XFont(FontName, FontSize, XFontStyle.Regular);
             pdfGraphics.DrawString(TitleString, pdfFont, XBrushes.Black, new XRect(0, 0, pdfPage.Width, pdfPage.Height), XStringFormats.Center);
@@ -88,7 +91,7 @@ namespace Didstopia.PDFSharp.Tests
         {
             // attempt open with null provider, should not throw exception
             PdfReader.Open(PasswordSamplePath, PdfDocumentOpenMode.ReadOnly, null);
-               
+
             // purposely open document with invalid password, ensure pdf reader exception thrown
             Assert.Throws<PdfReaderException>(() =>
             {
@@ -100,7 +103,7 @@ namespace Didstopia.PDFSharp.Tests
             {
                 PdfReader.Open(PasswordSamplePath, "invalid password", PdfDocumentOpenMode.ReadOnly);
             }
-            
+
             catch (Exception ex)
             {
                 Assert.Equal("The specified password is invalid.", ex.Message);
@@ -134,7 +137,10 @@ namespace Didstopia.PDFSharp.Tests
         public void TextAcroForms()
         {
             // Set the global font resolver
-            GlobalFontSettings.FontResolver = new FontResolver();
+            if (GlobalFontSettings.FontResolver == null)
+            {
+                GlobalFontSettings.FontResolver = new FontResolver();
+            }
 
             // Load the PDF
             var pdfDocument = PdfReader.Open(PasswordSamplePathAcroForm, PdfDocumentOpenMode.Modify);
@@ -172,5 +178,5 @@ namespace Didstopia.PDFSharp.Tests
             pdfDocument.Close();
             pdfDocument.Dispose();
         }
-    } 
+    }
 }
