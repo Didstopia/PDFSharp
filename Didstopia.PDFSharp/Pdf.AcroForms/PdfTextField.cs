@@ -32,6 +32,7 @@ using Didstopia.PDFSharp.Fonts;
 using Didstopia.PDFSharp.Pdf.Advanced;
 using Didstopia.PDFSharp.Pdf.Annotations;
 using Didstopia.PDFSharp.Pdf.Internal;
+using System.Text;
 
 namespace Didstopia.PDFSharp.Pdf.AcroForms
 {
@@ -263,6 +264,10 @@ namespace Didstopia.PDFSharp.Pdf.AcroForms
             ap.Elements["/N"] = form.PdfForm.Reference;
 
             PdfFormXObject xobj = form.PdfForm;
+            if (xobj.Stream == null)
+            {
+                xobj.CreateStream(Encoding.ASCII.GetBytes(text));
+            }
             string s = xobj.Stream.ToString();
             // Thank you Adobe: Without putting the content in 'EMC brackets'
             // the text is not rendered by PDF Reader 9 or higher.
