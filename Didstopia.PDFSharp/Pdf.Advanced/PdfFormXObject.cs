@@ -219,10 +219,14 @@ namespace Didstopia.PDFSharp.Pdf.Advanced
 
                 // Translate the image such that its center lies on the center of the rotated bounding box
                 double offset = (height - width) / 2;
-                if (height > width)
+                if (rotate == 90)
+                {
                     matrix.TranslatePrepend(offset, offset);
-                else
+                }
+                else if (rotate == 270)
+                {
                     matrix.TranslatePrepend(-offset, -offset);
+                }
 
                 //string item = "[" + PdfEncoders.ToString(matrix) + "]";
                 //Elements[Keys.Matrix] = new PdfLiteral(item);

@@ -194,7 +194,7 @@ namespace Didstopia.PDFSharp.Drawing.Layout
                     blockLength = 0;
                     _blocks.Add(new Block(BlockType.LineBreak));
                 }
-                else if (char.IsWhiteSpace(ch))
+                else if (ch != Chars.NonBreakableSpace && char.IsWhiteSpace(ch))
                 {
                     if (inNonWhiteSpace)
                     {
