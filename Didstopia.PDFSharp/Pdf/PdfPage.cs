@@ -73,7 +73,10 @@ namespace Didstopia.PDFSharp.Pdf
             // Set Orientation depending on /Rotate.
             int rotate = Elements.GetInteger(InheritablePageKeys.Rotate);
             if (Math.Abs((rotate / 90)) % 2 == 1)
+            {
                 _orientation = PageOrientation.Landscape;
+                _orientationSetByCodeForRotatedDocument = true;
+            }
         }
 
         void Initialize()
@@ -146,9 +149,14 @@ namespace Didstopia.PDFSharp.Pdf
         public PageOrientation Orientation
         {
             get { return _orientation; }
-            set { _orientation = value; }
+            set
+            {
+                _orientation = value;
+                _orientationSetByCodeForRotatedDocument = false;
+            }
         }
         PageOrientation _orientation;
+        bool _orientationSetByCodeForRotatedDocument;
 
         /// <summary>
         /// Gets or sets one of the predefined standard sizes like.
@@ -581,7 +589,7 @@ namespace Didstopia.PDFSharp.Pdf
             // HACK: temporarily flip media box if Landscape
             PdfRectangle mediaBox = MediaBox;
             // TODO: Take /Rotate into account
-            if (_orientation == PageOrientation.Landscape)
+            if (_orientation == PageOrientation.Landscape && !_orientationSetByCodeForRotatedDocument)
                 MediaBox = new PdfRectangle(mediaBox.X1, mediaBox.Y1, mediaBox.Y2, mediaBox.X2);
 
 #if true
@@ -612,7 +620,7 @@ namespace Didstopia.PDFSharp.Pdf
 #endif
             base.WriteObject(writer);
 
-            if (_orientation == PageOrientation.Landscape)
+            if (_orientation == PageOrientation.Landscape && !_orientationSetByCodeForRotatedDocument)
                 MediaBox = mediaBox;
         }
 

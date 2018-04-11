@@ -313,10 +313,10 @@ namespace Didstopia.PDFSharp.Drawing
         /// </summary>
         void Initialize()
         {
-#if DEBUG
-            if (_familyName == "Segoe UI Semilight" && (_style & XFontStyle.BoldItalic) == XFontStyle.Italic)
-                GetType();
-#endif
+//#if DEBUG
+//            if (_familyName == "Segoe UI Semilight" && (_style & XFontStyle.BoldItalic) == XFontStyle.Italic)
+//                GetType();
+//#endif
 
             FontResolvingOptions fontResolvingOptions = OverrideStyleSimulations
                 ? new FontResolvingOptions(_style, StyleSimulations)

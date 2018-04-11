@@ -23,7 +23,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 // THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
@@ -818,7 +818,9 @@ namespace Didstopia.PDFSharp.Pdf
                 PdfArray array;
                 PdfReference iref;
                 PdfItem value = this[key];
-                if (value == null)
+                if (value == null ||
+                    value is PdfNull ||
+                    value is PdfReference && ((PdfReference)value).Value is PdfNullObject)
                 {
                     if (options != VCF.None)
                     {
@@ -1839,7 +1841,7 @@ namespace Didstopia.PDFSharp.Pdf
                 /// (Optional) A parameter dictionary or an array of such dictionaries, used by the filters
                 /// specified by Filter. If there is only one filter and that filter has parameters, DecodeParms
                 /// must be set to the filter’s parameter dictionary unless all the filter’s parameters have
-                /// their default values, in which case the DecodeParms entry may be omitted. If there are 
+                /// their default values, in which case the DecodeParms entry may be omitted. If there are
                 /// multiple filters and any of the filters has parameters set to nondefault values, DecodeParms
                 /// must be an array with one entry for each filter: either the parameter dictionary for that
                 /// filter, or the null object if that filter has no parameters (or if all of its parameters have
@@ -1897,8 +1899,8 @@ namespace Didstopia.PDFSharp.Pdf
             get
             {
 #if true
-                return String.Format(CultureInfo.InvariantCulture, "dictionary({0},[{1}])={2}", 
-                    ObjectID.DebuggerDisplay, 
+                return String.Format(CultureInfo.InvariantCulture, "dictionary({0},[{1}])={2}",
+                    ObjectID.DebuggerDisplay,
                     Elements.Count,
                     _elements.DebuggerDisplay);
 #else
