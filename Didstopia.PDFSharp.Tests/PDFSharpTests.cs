@@ -82,6 +82,29 @@ namespace Didstopia.PDFSharp.Tests
             loadedPdfDocument.Close();
             loadedPdfDocument.Dispose();
         }
+        
+        [Fact]
+        public void WhenAddingGraphics_AddingContainer_Succeeds()
+        {
+            // Create a new PDF
+            var pdfDocument = new PdfDocument();
+            Assert.True(pdfDocument != null, "PDF should not be null");
+
+            // Add a new page to the PDF
+            var pdfPage = pdfDocument.AddPage();
+            Assert.NotNull(pdfPage);
+
+            // Start drawing graphics:
+            var pdfGraphics = XGraphics.FromPdfPage(pdfPage);
+            Assert.NotNull(pdfGraphics);
+
+            // Then, add a container:
+            var container = pdfGraphics.BeginContainer();
+            Assert.NotNull(container);
+
+            // End by restoring the state:
+            pdfGraphics.EndContainer(container);
+        }
 
         /// <summary>
         /// Ensure opening documents with null provider, or invalid password fail predicably
