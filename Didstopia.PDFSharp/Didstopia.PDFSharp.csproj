@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ReleaseVersion>1.0.0-beta7</ReleaseVersion>
+    <ReleaseVersion>1.0.0-beta8</ReleaseVersion>
     <VersionPrefix>0.0.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Authors>Didstopia, ststeiger, roceh, empira</Authors>
@@ -11,10 +11,8 @@
     <PackageLicenseUrl>https://github.com/Didstopia/PDFSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <Owners>Didstopia</Owners>
     <PackageProjectUrl>https://github.com/Didstopia/PDFSharp</PackageProjectUrl>
-    <PackageReleaseNotes>Fixed dependency cycle issues with .NET Standard 2.0.
-Fixed missing license attributions.</PackageReleaseNotes>
     <Summary>A .NET Standard 2.0 library for reading, writing and editing PDF files.</Summary>
-    <PackageTags>pdfsharp pdf extract read edit modify parse dotnet standard 2.0 .net core</PackageTags>
+    <PackageTags>pdfsharp pdf extract read edit modify parse dotnet standard 2 2.0 2.1 .net core</PackageTags>
     <Title>PDFSharp for .NET Standard</Title>
     <PackageId>Didstopia.PDFSharp</PackageId>
     <Description>A .NET Standard 2.0 library for reading, writing and editing PDF files.
@@ -25,9 +23,11 @@ This is a modified fork based on several OSS projects. For more information see 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
     <DefineConstants>TRACE;PORTABLE;RELEASE;NETSTANDARD2_0</DefineConstants>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;PORTABLE;DEBUG;NETSTANDARD2_0</DefineConstants>
+    <LangVersion>Latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="!internal\" />

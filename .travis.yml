@@ -4,8 +4,8 @@ language: csharp
 # Mono is not required for this project
 mono: none
 
-# Install .NET Core 2.0
-dotnet: 2.0.0
+# Install .NET Core 2.1
+dotnet: 2.1
 
 # Run Ubuntu Trusty
 dist: trusty
