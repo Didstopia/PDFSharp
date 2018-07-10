@@ -4416,7 +4416,7 @@ namespace Didstopia.PDFSharp.Drawing  // #??? aufräumen
             if (unit != XGraphicsUnit.Point)
                 throw new ArgumentException("The current implementation supports XGraphicsUnit.Point only.", "unit");
 
-            XGraphicsContainer xContainer = null;
+            XGraphicsContainer xContainer = new XGraphicsContainer();
 #if CORE
             if (TargetContext == XGraphicTargetContext.CORE)
                 xContainer = new XGraphicsContainer();
