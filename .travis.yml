@@ -29,7 +29,7 @@ jobs:
         - dotnet pack -c ${BUILD_CONFIG} --no-build
 
     - stage: Deploy to MyGet
-      if: branch != master AND tag IS NOT present
+      if: (branch = development) AND (type != pull_request)
       script: skip
       deploy:
         provider: script
@@ -41,11 +41,12 @@ jobs:
           tags: false
 
     - stage: Deploy to NuGet
-      if: branch = master AND tag IS present
+      if: (branch = master) AND (type != pull_request)
       script: skip
       deploy:
         provider: script
-        script: .scripts/deploy.sh $BUILD_CONFIG $NUGET_API_KEY "" $TRAVIS_TAG
+        script:
+          - if [ ! -z "$TRAVIS_TAG" ]; then .scripts/deploy.sh $BUILD_CONFIG $NUGET_API_KEY "" $TRAVIS_TAG; else echo "Missing tag, skipping NuGet deployment.."; fi
         skip_cleanup: true
         on:
           repo: Didstopia/PDFSharp
@@ -53,11 +54,11 @@ jobs:
           tags: false
 
     - stage: Deploy to GitHub
-      if: branch = master AND tag IS present
+      if: branch = master) AND (type != pull_request)
       script:
-        - dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}
-        - dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}
-        - dotnet pack -c $BUILD_CONFIG --no-build /p:PackageVersion=${TRAVIS_TAG#v}
+        - if [ ! -z "$TRAVIS_TAG" ]; then dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}; else echo "Missing tag, skipping restore.."; fi
+        - if [ ! -z "$TRAVIS_TAG" ]; then dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}; else echo "Missing tag, skipping build.."; fi
+        - if [ ! -z "$TRAVIS_TAG" ]; then dotnet pack -c $BUILD_CONFIG --no-build /p:PackageVersion=${TRAVIS_TAG#v}; else echo "Missing tag, skipping pack.."; fi
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
