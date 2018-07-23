@@ -55,8 +55,21 @@ namespace Didstopia.PDFSharp.Tests
             XFont pdfFont = new XFont(FontName, FontSize, XFontStyle.Regular);
             pdfGraphics.DrawString(TitleString, pdfFont, XBrushes.Black, new XRect(0, 0, pdfPage.Width, pdfPage.Height), XStringFormats.Center);
 
-            // Add an image with transparency
+            // Throw an exception when drawing without a custom image source
+            try
+            {
+                pdfGraphics.DrawImage(XImage.FromFile("Samples/sample.png"), new XRect(0, 0, pdfPage.Width, pdfPage.Height));
+            }
+            catch (Exception ex)
+            {
+                Assert.Equal("Invalid or missing ImageSource implementation (a custom implementation is required)", ex.Message);
+                Console.WriteLine(ex);
+            }
+
+            // Use a custom image source
             ImageSource.ImageSourceImpl = new ImageSharpImageSource();
+
+            // Add an image with transparency
             pdfGraphics.DrawImage(XImage.FromFile("Samples/sample.png"), new XRect(0, 0, pdfPage.Width, pdfPage.Height));
 
             // Save the PDF to a temporary path

@@ -76,6 +76,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		description = @A .NET Standard 2.0 library for reading, writing and editing PDF files.\r\n\r\nThis is a modified fork based on several OSS projects. For more information see the license.
-		version = 1.0.0-beta7
+		version = 1.0.0-beta8
 	EndGlobalSection
 EndGlobal
