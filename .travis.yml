@@ -29,6 +29,7 @@ jobs:
         - dotnet pack -c ${BUILD_CONFIG} --no-build
 
     - stage: Deploy to MyGet
+      if: branch != master AND tag IS NOT present
       script: skip
       deploy:
         provider: script
@@ -40,6 +41,7 @@ jobs:
           tags: false
 
     - stage: Deploy to NuGet
+      if: branch = master AND tag IS NOT present
       script: skip
       deploy:
         provider: script
@@ -48,9 +50,10 @@ jobs:
         on:
           repo: Didstopia/PDFSharp
           branch: master
-          tags: true
+          tags: false
 
     - stage: Deploy to GitHub
+      if: branch = master AND tag IS present
       script:
         - dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}
         - dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}
