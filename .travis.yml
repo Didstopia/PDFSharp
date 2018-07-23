@@ -22,9 +22,14 @@ jobs:
   include:
 
     - stage: Build and Test
+      before_script:
+        # Print build info that binary is compiled with.
+        - echo $TRAVIS_COMMIT
+        - echo $TRAVIS_TAG
+        - echo $TRAVIS_BRANCH
+        - echo $TRAVIS_BUILD_NUMBER
+        - echo $TRAVIS_REPO_SLUG
       script:
-        - echo "Branch: ${TRAVIS_BRANCH}"
-        - echo "Tag: ${TRAVIS_TAG}"
         - dotnet restore
         - dotnet build -c ${BUILD_CONFIG}
         - dotnet test -c ${BUILD_CONFIG} --no-build Didstopia.PDFSharp.Tests
