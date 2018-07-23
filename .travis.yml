@@ -41,7 +41,7 @@ jobs:
           tags: false
 
     - stage: Deploy to NuGet
-      if: branch = master AND tag IS NOT present
+      if: branch = master AND tag IS present
       script: skip
       deploy:
         provider: script
