@@ -41,7 +41,7 @@ jobs:
           tags: false
 
     - stage: Deploy to NuGet
-      if: (branch = master) AND (type != pull_request)
+      if: branch = master
       script: skip
       deploy:
         provider: script
@@ -54,7 +54,7 @@ jobs:
           tags: false
 
     - stage: Deploy to GitHub
-      if: (branch = master) AND (type != pull_request)
+      if: branch = master
       script:
         - if [ ! -z "$TRAVIS_TAG" ]; then dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}; else echo "Missing tag, skipping restore.."; fi
         - if [ ! -z "$TRAVIS_TAG" ]; then dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}; else echo "Missing tag, skipping build.."; fi
