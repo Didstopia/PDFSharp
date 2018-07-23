@@ -1,9 +1,13 @@
-﻿using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
+﻿using System;
+using System.IO;
+
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using System;
-using System.IO;
+using SixLabors.ImageSharp.PixelFormats;
+
+using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
+
 using static MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes.ImageSource;
 using ISImage = SixLabors.ImageSharp.Image;
 
