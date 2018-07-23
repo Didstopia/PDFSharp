@@ -23,6 +23,8 @@ jobs:
 
     - stage: Build and Test
       script:
+        - echo "Branch: $TRAVIS_BRANCH"
+        - echo "Tag: $TRAVIS_TAG"
         - dotnet restore
         - dotnet build -c ${BUILD_CONFIG}
         - dotnet test -c ${BUILD_CONFIG} --no-build Didstopia.PDFSharp.Tests
@@ -53,7 +55,8 @@ jobs:
           tags: false
 
     - stage: Deploy to GitHub
-      if: branch = master AND tag IS present
+      #if: branch = master AND tag IS present
+      if: tag IS present
       script:
         - dotnet restore /p:PackageVersion=${TRAVIS_TAG#v}
         - dotnet build -c $BUILD_CONFIG /p:PackageVersion=${TRAVIS_TAG#v}
