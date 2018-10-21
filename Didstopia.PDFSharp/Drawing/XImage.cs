@@ -129,32 +129,47 @@ namespace Didstopia.PDFSharp.Drawing
             _source = ImageSource.FromBinary(_path, data, isJpeg);
             Initialize();
         }
-
+        /// <summary>
+        /// Creates an image from the specified file.
+        /// </summary>
+        /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
+        public static XImage FromFile(string path)
+        {
+            var isJepg = string.IsNullOrEmpty(path)
+                     || path.EndsWith("jpeg")
+                     || path.EndsWith("jpg");
+            return FromFile(path, isJepg);
+        }
         /// <summary>
         /// Creates an image from the specified file.
         /// </summary>
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         /// <param name="isJepg">True if the file is a JPEG; otherwise false. If left null, the format will be determined from the extension.</param>
-        public static XImage FromFile(string path, bool? isJepg = null)
+        public static XImage FromFile(string path, bool isJepg)
         {
             if (PdfReader.TestPdfFile(path) > 0)
-                return new XPdfForm(path);
-            if (!isJepg.HasValue)
-            {
-                isJepg = string.IsNullOrEmpty(path)
-                    || path.EndsWith("jpeg")
-                    || path.EndsWith("jpg");
-            }
-            return new XImage(path, isJepg.Value);
+                return new XPdfForm(path);            
+            return new XImage(path, isJepg);
         }
-
         /// <summary>
         /// Creates an image from the specified stream.<br/>
         /// Silverlight supports PNG and JPEF only.
         /// </summary>
         /// <param name="stream">The stream containing a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         /// <param name="isJepg">True if the file is a JPEG; otherwise false.</param>
-        public static XImage FromStream(Func<Stream> stream, bool isJepg = true)
+        public static XImage FromStream(Func<Stream> stream)
+        {
+            if (stream == null)
+                throw new ArgumentNullException("stream");          
+            return new XImage(stream, true);
+        }
+        /// <summary>
+        /// Creates an image from the specified stream.<br/>
+        /// Silverlight supports PNG and JPEF only.
+        /// </summary>
+        /// <param name="stream">The stream containing a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
+        /// <param name="isJepg">True if the file is a JPEG; otherwise false.</param>
+        public static XImage FromStream(Func<Stream> stream, bool isJepg)
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
