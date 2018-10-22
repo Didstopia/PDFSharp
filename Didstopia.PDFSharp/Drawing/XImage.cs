@@ -27,12 +27,14 @@
 // DEALINGS IN THE SOFTWARE.
 #endregion
 
+using Didstopia.PDFSharp.Pdf.Advanced;
+using Didstopia.PDFSharp.Pdf.IO;
+using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Didstopia.PDFSharp.Pdf.IO;
-using Didstopia.PDFSharp.Pdf.Advanced;
-using MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes;
+using System.Linq;
 using static MigraDocCore.DocumentObjectModel.MigraDoc.DocumentObjectModel.Shapes.ImageSource;
 
 namespace Didstopia.PDFSharp.Drawing
@@ -129,23 +131,76 @@ namespace Didstopia.PDFSharp.Drawing
             _source = ImageSource.FromBinary(_path, data, isJpeg);
             Initialize();
         }
-
+        /// <summary>
+        /// Creates an image from the specified file.
+        /// </summary>
+        /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
+        public static XImage FromFile(string path)
+        {
+            var isJepg = string.IsNullOrEmpty(path)
+                     || path.EndsWith("jpeg")
+                     || path.EndsWith("jpg");
+            return FromFile(path, isJepg);
+        }
         /// <summary>
         /// Creates an image from the specified file.
         /// </summary>
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         /// <param name="isJepg">True if the file is a JPEG; otherwise false. If left null, the format will be determined from the extension.</param>
-        public static XImage FromFile(string path, bool? isJepg = null)
+        public static XImage FromFile(string path, bool isJepg)
         {
             if (PdfReader.TestPdfFile(path) > 0)
                 return new XPdfForm(path);
-            if (!isJepg.HasValue)
+            return new XImage(path, isJepg);
+        }
+        /// <summary>
+        /// Creates an image from the specified stream.<br/>
+        /// Silverlight supports PNG and JPEF only.
+        /// </summary>
+        /// <param name="stream">The stream containing a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>        
+        public static XImage FromStream(Func<Stream> stream)
+        {
+            if (stream == null)
+                throw new ArgumentNullException("stream");
+
+            var bytes = new byte[] { };
+            using (var ms = new MemoryStream())
             {
-                isJepg = string.IsNullOrEmpty(path)
-                    || path.EndsWith("jpeg")
-                    || path.EndsWith("jpg");
+                stream.Invoke().CopyTo(ms);
+                bytes = ms.ToArray();
             }
-            return new XImage(path, isJepg.Value);
+            bool isJpeg = IsImageJpg(bytes);
+            bytes = null;
+            return new XImage(stream, isJpeg);
+        }
+
+        public static bool IsImageJpg(byte[] bytes)
+        {
+            var isJpeg = true;
+            //https://stackoverflow.com/questions/4550296/how-to-identify-contents-of-a-byte-is-a-jpeg
+            if (bytes != null)
+            {
+                byte one = new byte() { };
+
+                var testBytes = new List<byte>();
+                testBytes.AddRange(bytes.Take(2).ToArray());
+                testBytes.AddRange(bytes.Skip(bytes.Length - 2).ToArray());
+                if (testBytes.Count == 4)
+                {
+
+                    var expectedBytes = new string[] { "FF", "D8", "FF", "D9" };
+                    var counter = 0;
+                    foreach (var b in testBytes)
+                    {
+                        if (b.ToString("X") != expectedBytes[counter])
+                        { isJpeg = false; continue; }
+                        counter++;
+                    }
+                }
+
+            }
+
+            return isJpeg;
         }
 
         /// <summary>
@@ -154,7 +209,7 @@ namespace Didstopia.PDFSharp.Drawing
         /// </summary>
         /// <param name="stream">The stream containing a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         /// <param name="isJepg">True if the file is a JPEG; otherwise false.</param>
-        public static XImage FromStream(Func<Stream> stream, bool isJepg = true)
+        public static XImage FromStream(Func<Stream> stream, bool isJepg)
         {
             if (stream == null)
                 throw new ArgumentNullException("stream");
@@ -176,14 +231,14 @@ namespace Didstopia.PDFSharp.Drawing
         /// <param name="path">The path to a BMP, PNG, GIF, JPEG, TIFF, or PDF file.</param>
         public static bool ExistsFile(string path)
         {
-			// Support for "base64:" pseudo protocol is a MigraDoc feature, currently completely implemented in MigraDoc files. TODO: Does support for "base64:" make sense for PDFsharp? Probably not as PDFsharp can handle images from streams.
-			//if (path.StartsWith("base64:")) // The Image is stored in the string here, so the file exists.
-			//    return true;
+            // Support for "base64:" pseudo protocol is a MigraDoc feature, currently completely implemented in MigraDoc files. TODO: Does support for "base64:" make sense for PDFsharp? Probably not as PDFsharp can handle images from streams.
+            //if (path.StartsWith("base64:")) // The Image is stored in the string here, so the file exists.
+            //    return true;
 
-			// NOTE: The old method below would try to validate the PDF file,
+            // NOTE: The old method below would try to validate the PDF file,
             //       which has nothing to do with checking for the existence of a file
-			return File.Exists(path);
-            
+            return File.Exists(path);
+
             /*if (PdfReader.TestPdfFile(path) > 0)
                 return true;
 			

@@ -36,6 +36,26 @@ This is a modified fork based on several OSS projects. For more information see 
     <None Remove="Fonts\Tinos-Italic.ttf" />
     <None Remove="Fonts\Tinos-Licence.txt" />
     <None Remove="Fonts\Tinos-Regular.ttf" />
+    <None Remove="Images\w3c_home.bmp" />
+    <None Remove="Images\w3c_home.gif" />
+    <None Remove="Images\w3c_home.jpg" />
+    <None Remove="Images\w3c_home.png" />
+    <None Remove="Images\w3c_home_2.bmp" />
+    <None Remove="Images\w3c_home_2.gif" />
+    <None Remove="Images\w3c_home_2.jpg" />
+    <None Remove="Images\w3c_home_2.png" />
+    <None Remove="Images\w3c_home_256.bmp" />
+    <None Remove="Images\w3c_home_256.gif" />
+    <None Remove="Images\w3c_home_256.jpg" />
+    <None Remove="Images\w3c_home_256.png" />
+    <None Remove="Images\w3c_home_animation.gif" />
+    <None Remove="Images\w3c_home_animation.mng" />
+    <None Remove="Images\w3c_home_gray %281%29.gif" />
+    <None Remove="Images\w3c_home_gray %281%29.png" />
+    <None Remove="Images\w3c_home_gray.bmp" />
+    <None Remove="Images\w3c_home_gray.gif" />
+    <None Remove="Images\w3c_home_gray.jpg" />
+    <None Remove="Images\w3c_home_gray.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fonts\Tinos-Bold.ttf">
@@ -54,6 +74,26 @@ This is a modified fork based on several OSS projects. For more information see 
     <EmbeddedResource Include="Fonts\Tinos-Regular.ttf">
       <LogicalName>Tinos-Regular.ttf</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Images\w3c_home.bmp" />
+    <EmbeddedResource Include="Images\w3c_home.gif" />
+    <EmbeddedResource Include="Images\w3c_home.jpg" />
+    <EmbeddedResource Include="Images\w3c_home.png" />
+    <EmbeddedResource Include="Images\w3c_home_2.bmp" />
+    <EmbeddedResource Include="Images\w3c_home_2.gif" />
+    <EmbeddedResource Include="Images\w3c_home_2.jpg" />
+    <EmbeddedResource Include="Images\w3c_home_2.png" />
+    <EmbeddedResource Include="Images\w3c_home_256.bmp" />
+    <EmbeddedResource Include="Images\w3c_home_256.gif" />
+    <EmbeddedResource Include="Images\w3c_home_256.jpg" />
+    <EmbeddedResource Include="Images\w3c_home_256.png" />
+    <EmbeddedResource Include="Images\w3c_home_animation.gif" />
+    <EmbeddedResource Include="Images\w3c_home_animation.mng" />
+    <EmbeddedResource Include="Images\w3c_home_gray (1).gif" />
+    <EmbeddedResource Include="Images\w3c_home_gray (1).png" />
+    <EmbeddedResource Include="Images\w3c_home_gray.bmp" />
+    <EmbeddedResource Include="Images\w3c_home_gray.gif" />
+    <EmbeddedResource Include="Images\w3c_home_gray.jpg" />
+    <EmbeddedResource Include="Images\w3c_home_gray.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Samples\pdf-example-acroform.pdf">
